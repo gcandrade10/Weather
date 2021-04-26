@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Weather Sample</string>
+    <string name="intro_welcome_title">Welcome to Weather</string>
+    <string name="intro_welcome_description">This sample will show weather forecasts retrieved from MetaWeather</string>
+    <string name="intro_search_title">Search</string>
+    <string name="intro_search_description">You can search any city</string>
+    <string name="intro_forecasts_title">Forecasts</string>
+    <string name="intro_forecasts_description">You can see the forecast of the next 4 days</string>
+</resources>
