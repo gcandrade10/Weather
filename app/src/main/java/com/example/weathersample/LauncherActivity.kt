@@ -3,7 +3,6 @@ package com.example.weathersample
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 
-
 class LauncherActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -13,11 +12,9 @@ class LauncherActivity : AppCompatActivity() {
         if (!isIntroCompleted) {
             startActivity(IntroActivity.newIntent(this))
         }
-
     }
 
     companion object {
-
         const val SHARED_PREFERENCE = "SHARED PREFERENCE"
         const val INTRO_COMPLETED_KEY = "INTRO COMPLETED"
     }

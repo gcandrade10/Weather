@@ -30,6 +30,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -45,4 +48,16 @@ dependencies {
 
     implementation 'com.github.AppIntro:AppIntro:6.1.0'
 
+    def nav_version = "2.3.5"
+
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    implementation 'com.squareup.retrofit2:retrofit:2.7.0'
+    implementation 'com.squareup.retrofit2:converter-moshi:2.7.0'
+
+    def koin_version= "3.0.1"
+    implementation "io.insert-koin:koin-android:$koin_version"
+
+    implementation 'com.localebro:okhttpprofiler:1.0.8'
 }
