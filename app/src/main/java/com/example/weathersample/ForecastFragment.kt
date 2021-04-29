@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
@@ -28,6 +29,18 @@ class ForecastFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpMainObserver()
+        setUpErrorObserver(view)
+        forecastViewModel.getForecast(args.id)
+    }
+
+    private fun setUpErrorObserver(view: View) =
+        forecastViewModel.errorLiveData.observe(viewLifecycleOwner, {
+            binding.loadingIndicator.isVisible = false
+            Toast.makeText(view.context, R.string.general_error, Toast.LENGTH_SHORT).show()
+        })
+
+    private fun setUpMainObserver() {
         forecastViewModel.mainLiveData.observe(viewLifecycleOwner, {
             binding.title.text = it.title
             val adapter = ForecastAdapter(it.list)
@@ -35,8 +48,6 @@ class ForecastFragment : Fragment() {
             binding.forecasts.adapter = adapter
             binding.loadingIndicator.isVisible = false
         })
-        forecastViewModel.forecast(args.id)
-
     }
 
 }

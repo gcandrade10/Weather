@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
@@ -29,11 +30,27 @@ class SearchFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setUpLiveDataObserver(view)
+        setUpErrorObserver(view)
+        binding.searchBox.doAfterTextChanged {
+            searchViewModel.search(it.toString())
+            binding.loadingIndicator.isVisible = true
+        }
+    }
+
+    private fun setUpErrorObserver(view: View) =
+        searchViewModel.errorLiveData.observe(viewLifecycleOwner, {
+            binding.loadingIndicator.isVisible = false
+            Toast.makeText(view.context, R.string.general_error, Toast.LENGTH_SHORT).show()
+        })
+
+    private fun setUpLiveDataObserver(view: View) =
         searchViewModel.mainLiveData.observe(viewLifecycleOwner, { results: List<Result> ->
             binding.loadingIndicator.isVisible = false
-            binding.searchBox.setOnItemClickListener { view, _, position, _ ->
+            binding.searchBox.setOnItemClickListener { _, _, position, _ ->
                 val id = results[position].id
                 val action = SearchFragmentDirections.actionSearchFragmentToForecastFragment(id)
+                binding.searchBox.text.clear()
                 findNavController(this).navigate(action)
             }
             val cities = results.map { "${it.title} ${it.type}" }
@@ -41,9 +58,5 @@ class SearchFragment : Fragment() {
             binding.searchBox.setAdapter(adapter)
             binding.searchBox.showDropDown()
         })
-        binding.searchBox.doAfterTextChanged {
-            searchViewModel.search(it.toString())
-            binding.loadingIndicator.isVisible = true
-        }
-    }
+
 }

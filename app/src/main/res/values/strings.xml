@@ -8,5 +8,5 @@
     <string name="intro_forecasts_description">You can see the forecast of the next 4 days</string>
     <string name="search_hint">e.g: miami</string>
     <string name="item_temperature">%1$d °C</string>
-
+    <string name="general_error">Please check your internet connection</string>
 </resources>

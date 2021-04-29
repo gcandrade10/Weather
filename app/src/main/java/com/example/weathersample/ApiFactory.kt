@@ -46,7 +46,6 @@ interface Api {
     @GET("/api/location/search")
     suspend fun search(@Query("query") query: String): Response<List<Result>>
 
-
     @GET("/api/location/{id}")
     suspend fun forecast(@Path("id") id: Int): Response<ForecastResponse>
 }

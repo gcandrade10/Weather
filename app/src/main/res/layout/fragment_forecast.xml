@@ -3,7 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingVertical="32dp"
     android:layout_height="match_parent"
     tools:context=".ForecastFragment">
 
@@ -18,6 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:layout_marginTop="32dp"
         android:id="@+id/title"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         tools:text="Bogotá"
