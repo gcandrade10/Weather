@@ -7,7 +7,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import org.koin.dsl.module
 
-class WeatherApp : Application(){
+class WeatherApp : Application() {
     override fun onCreate() {
         super.onCreate()
         startKoin {
@@ -21,4 +21,5 @@ class WeatherApp : Application(){
 val repositoryModule = module {
     single { ApiFactory.api }
     viewModel { SearchViewModel(get()) }
+    viewModel { ForecastViewModel(get()) }
 }

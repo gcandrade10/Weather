@@ -8,6 +8,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 
 object ApiFactory {
@@ -44,6 +45,10 @@ object ApiFactory {
 interface Api {
     @GET("/api/location/search")
     suspend fun search(@Query("query") query: String): Response<List<Result>>
+
+
+    @GET("/api/location/{id}")
+    suspend fun forecast(@Path("id") id: Int): Response<ForecastResponse>
 }
 
 data class Result(
@@ -52,4 +57,25 @@ data class Result(
     val type: String,
     @field:Json(name = "woeid")
     val id: Int
+)
+
+data class ForecastResponse(
+    val title: String,
+    @field:Json(name = "consolidated_weather")
+    val list: List<Forecast>
+)
+
+data class Forecast(
+    @field:Json(name = "weather_state_name")
+    val name: String,
+    @field:Json(name = "weather_state_abbr")
+    val icon: String,
+    @field:Json(name = "the_temp")
+    val temperature: Double,
+    @field:Json(name = "min_temp")
+    val minTemperature: Double,
+    @field:Json(name = "max_temp")
+    val maxTemperature: Double,
+    @field:Json(name = "applicable_date")
+    val date: String
 )
