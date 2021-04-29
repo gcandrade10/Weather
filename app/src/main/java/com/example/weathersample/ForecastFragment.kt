@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,6 +33,7 @@ class ForecastFragment : Fragment() {
             val adapter = ForecastAdapter(it.list)
             binding.forecasts.layoutManager = LinearLayoutManager(activity)
             binding.forecasts.adapter = adapter
+            binding.loadingIndicator.isVisible = false
         })
         forecastViewModel.forecast(args.id)
 

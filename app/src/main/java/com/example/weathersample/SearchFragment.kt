@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment.findNavController
@@ -29,6 +30,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         searchViewModel.mainLiveData.observe(viewLifecycleOwner, { results: List<Result> ->
+            binding.loadingIndicator.isVisible = false
             binding.searchBox.setOnItemClickListener { view, _, position, _ ->
                 val id = results[position].id
                 val action = SearchFragmentDirections.actionSearchFragmentToForecastFragment(id)
@@ -41,6 +43,7 @@ class SearchFragment : Fragment() {
         })
         binding.searchBox.doAfterTextChanged {
             searchViewModel.search(it.toString())
+            binding.loadingIndicator.isVisible = true
         }
     }
 }

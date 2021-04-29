@@ -1,8 +1,10 @@
 package com.example.weathersample
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.weathersample.WeatherApp.Companion.context
 import com.example.weathersample.databinding.ForecastItemBinding
 
 class ForecastAdapter(private val forecasts: List<Forecast>) :
@@ -14,7 +16,7 @@ class ForecastAdapter(private val forecasts: List<Forecast>) :
     }
 
     override fun onBindViewHolder(holder: ForecastViewHolder, position: Int) {
-        holder.bind(forecasts[position])
+        holder.bind(context, forecasts[position])
     }
 
     override fun getItemCount() = forecasts.size
@@ -24,11 +26,12 @@ class ForecastAdapter(private val forecasts: List<Forecast>) :
 class ForecastViewHolder(private val itemBinding: ForecastItemBinding) :
     RecyclerView.ViewHolder(itemBinding.root) {
 
-    fun bind(forecast: Forecast) {
+    fun bind(context: Context, forecast: Forecast) {
         itemBinding.date.text = forecast.date
         itemBinding.icon.setImageResource(forecast.toIcon())
         itemBinding.title.text = forecast.name
-        itemBinding.temperature.text = "${forecast.temperature}"
+        itemBinding.temperature.text =
+            context.getString(R.string.item_temperature, forecast.temperature.toInt())
     }
 }
 
