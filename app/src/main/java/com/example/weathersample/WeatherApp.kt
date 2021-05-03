@@ -7,6 +7,7 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 import org.koin.dsl.module
 
 class WeatherApp : Application() {
@@ -18,7 +19,7 @@ class WeatherApp : Application() {
         super.onCreate()
         context = this.applicationContext
         startKoin {
-            androidLogger()
+            androidLogger(level = Level.ERROR)
             androidContext(this@WeatherApp)
             modules(repositoryModule)
         }

@@ -18,6 +18,8 @@ class SearchViewModel(private val api: Api) : ViewModel() {
                     results.body()?.let {
                         mainLiveData.postValue(it)
                     }
+                } else {
+                    errorLiveData.postValue(Unit)
                 }
             } catch (e: Exception) {
                 errorLiveData.postValue(Unit)
